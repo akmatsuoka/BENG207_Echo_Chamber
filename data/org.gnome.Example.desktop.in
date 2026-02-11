@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=beng207_2
+Exec=beng207_2
+Icon=org.gnome.Example
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=GTK;
+StartupNotify=true
+DBusActivatable=true
