@@ -8,7 +8,7 @@ License: Public domain
 Further discussion: TBD
 </pre>
 
-Instruction to BENG207 students: Please review all of the variables/parameters.
+Instruction to BENG207 students: Please review all of the variables/parameters!!!
 
 ---
 
@@ -20,11 +20,13 @@ Instruction to BENG207 students: Please review all of the variables/parameters.
 * [BENG207 Rigid Cavity Resonator Model](#beng207-rigid-cavity-resonator-model-analytical-model)
 * [Parameters](#parameters)
 * [Output Figures: Captions](#output-figures-captions)
+* [References](#references)
 
 ---
+## Documentation
+- [More about Gor'kov contrast factor](BENG207_2_Gorkov_Explanation.md)
 
 ## Abstract
-
 TBW
 
 ## Background and Significance
@@ -90,7 +92,7 @@ Nodal uniformity — whether all nodes across the channel length have the same p
 
 At the lower operating frequency (~741 kHz vs. 20 MHz), the attenuation per unit length is roughly (0.741/20)² ≈ 1/730 times smaller than at 20 MHz. This means attenuation is essentially irrelevant for our channel lengths, and the dominant factor limiting standing wave quality is the wall reflection coefficient |r|.
 
-### Relationship to the Transfer-Matrix Model
+### Relationship to the Transfer-Matrix Model (AKA BENG207_Multilayer Model)
 
 The rigid cavity resonator model and the BENG207_1 transfer-matrix model describe orthogonal aspects of the same device. The transfer-matrix model determines how efficiently the transducer drives acoustic energy through the vertical stack and into the fluid channel — this sets the absolute pressure amplitude p₀ available for lateral trapping. The cavity resonator model then determines how that energy is spatially organized laterally between the sidewalls — this sets the nodal pattern, contrast, and uniformity.
 
@@ -105,6 +107,72 @@ The key predictions of the rigid cavity resonator model are directly testable:
 * **Frequency sensitivity:** Sweeping the driving frequency through a resonance peak and measuring organoid formation quality (number, spacing regularity, size uniformity) maps the effective Q of the cavity.
 * **Wall material dependence:** Comparing organoid quality between glass-walled and silicon-walled channels at the same frequency tests the predicted dependence on |r|.
 * **Spacing verification:** The center-to-center distance between adjacent organoids should be λ/2 ≈ 1 mm. Deviations indicate either frequency error, non-uniform channel geometry, or temperature-dependent sound speed changes.
+
+### Gor'kov Acoustic Radiation Force: From Pressure Gradient to Physical Force
+
+The original version of this model computed radiation force as proportional to −∂/∂x⟨p²⟩, which is dimensionless (or rather, in units of Pa²/m when the pressure field is normalized to p₀ = 1 Pa). This is sufficient for predicting *where* organoids form (pressure nodes) and comparing *relative* force between nodes (uniformity), but it does not tell you *how hard* the acoustic field is actually pulling on a cell and therefore somewhat unrelistic in nature. 
+
+To get force in physical units (Newtons), we need the Gor'kov potential formalism. IF you want to read upon it, please see For a small compressible sphere of radius $a$ in a standing wave, the time-averaged radiation force is:
+
+$$
+F_{\mathrm{rad}} = -\nabla U = \Phi \cdot \frac{\pi a^3}{3 \rho_f c_f^2} \cdot \left(-\frac{\partial}{\partial x}\langle p^2 \rangle\right)
+$$
+
+where $\Phi$ is the **acoustic contrast factor**:
+
+$$
+\Phi = \frac{f_1}{3} + \frac{f_2}{2}
+$$
+
+with monopole and dipole scattering coefficients:
+
+$$
+f_1 = 1 - \frac{\kappa_p}{\kappa_f} = 1 - \frac{\rho_f c_f^2}{\rho_p c_p^2}, \qquad
+f_2 = \frac{2(\rho_p - \rho_f)}{2\rho_p + \rho_f}
+$$
+
+Here $\kappa_p$ and $\kappa_f$ are the compressibilities of the particle and fluid, respectively; $\rho_p$ and $c_p$ are the density and sound speed of the particle (cell/organoid).
+
+The sign of $\Phi$ determines the trapping behavior:
+
+* **$\Phi$ > 0:** particles migrate to pressure **nodes** (our case — this is what we want)
+* **$\Phi$ < 0:** particles migrate to pressure **antinodes** (e.g., lipid droplets, gas bubbles)
+
+#### Beads vs. Cells: Why the Literature Value of Φ ≈ 0.17 Is Wrong for Our System (EXTREMELY IMPORTANT!!!!)
+
+Much of the acoustofluidics literature reports $\Phi$ ≈ 0.17, which comes from polystyrene beads (ρ_p = 1050 kg/m³, c_p = 2350 m/s) — the standard calibration particle for acoustic trapping experiments. This is the value you will find in most review papers and textbook examples. **However, this value does not apply to cells or organoids.**
+
+The critical difference is the sound speed. Polystyrene has c_p = 2350 m/s, which is far above water (c_f = 1483 m/s). This gives a large monopole coefficient f₁ ≈ 0.44 because the compressibility ratio κ_p/κ_f is small — polystyrene is much stiffer than water. Cells, on the other hand, are mostly water with some protein content, giving c_p ≈ 1520–1600 m/s — only slightly above water. This makes f₁ much smaller.
+
+For our iPSC organoids, using representative cell properties (ρ_p ≈ 1050 kg/m³, c_p ≈ 1550 m/s, consistent with Cohen et al., 2020):
+
+* f₁ = 1 − (1000 × 1483²) / (1050 × 1550²) ≈ **0.128** (monopole — compressibility contrast)
+* f₂ = 2 × (1050 − 1000) / (2 × 1050 + 1000) ≈ **0.032** (dipole — density contrast)
+* **Φ = 0.128/3 + 0.032/2 ≈ 0.059**
+
+Compare with polystyrene beads:
+
+* f₁ = 1 − (1000 × 1483²) / (1050 × 2350²) ≈ 0.62
+* f₂ = 0.032 (same density)
+* Φ ≈ 0.62/3 + 0.032/2 ≈ 0.22
+
+So **cells have roughly 3× lower acoustic contrast factor than polystyrene beads**. The practical consequence is that the acoustic pressure amplitude p₀ required to trap cells is √3 ≈ 1.7× higher than for beads (since force scales as p₀²), or equivalently the acoustic power must be ~3× higher. This is an important design consideration: demonstrations with beads at low power may not replicate with cells unless the power is increased.
+
+Note that the density contrast (f₂ ≈ 0.032) is the same for both beads and cells since they have similar densities. The entire difference in Φ comes from the monopole (compressibility) term f₁. This means the dominant physical mechanism trapping polystyrene beads is their stiffness relative to water, whereas for cells, the trapping is weaker and comes from a more balanced combination of the (small) stiffness and density contrasts.
+
+Cohen et al. (2020) experimentally confirmed that DRG neurons and PC12 cells are successfully trapped at acoustic pressure nodes using BAW excitation at 1.14 MHz — the same frequency range as our system (~741 kHz). Their success demonstrates that the lower Φ for biological cells is still sufficient for stable trapping, provided adequate acoustic pressure is supplied.
+
+The Gor'kov force in the model output (Fig 4) is reported in Newtons assuming p₀ = 1 Pa normalization. To estimate the actual force on a 200 µm diameter organoid at a realistic acoustic pressure (e.g., p₀ = 100 kPa), multiply the reported values by p₀² = 10¹⁰. This gives forces on the order of femtonewtons to piconewtons per organoid, which is consistent with the trapping forces reported in the acoustofluidics literature.
+
+**BENG207 Students: the values ρ_p = 1050 kg/m³ and c_p = 1550 m/s are reasonable defaults but should be updated if direct measurements of organoid acoustic properties become available. The contrast factor is sensitive to c_p — a 5% change in c_p changes Φ by ~20%.**
+
+### Supporting Literature
+
+Two recent papers directly validate the physics of our model at the relevant frequency range (Thanks to Alexi!):
+
+**Wang et al. (2022, Applied Physics Letters)** demonstrated standing wave patterning in a glass cuvette (rigid cavity) at 489 kHz and 734 kHz using a single 500 kHz broadband transducer. Their 10 mm cuvette at mode N = 9 produced node spacing of ~1.1 mm — nearly identical to our 1 mm target. Their resonant mode equation f_N = Nc_f/(2L) is the same as ours. This paper provides direct experimental validation that rigid-wall standing waves at our operating frequency produce well-defined node patterns with millimeter-scale spacing, and that a simple 1-D model accurately predicts node positions. Their sequential mode-switching technique (applying mode N = 6 first, then N = 9) could be relevant if selective node population is ever needed.
+
+**Cohen et al. (2020, Scientific Reports)** used both SAWs and BAWs to pattern neurons (DRG neurons and PC12 cells) into organized clusters on a 3D collagen hydrogel, then demonstrated that neurons spontaneously grew neurites toward adjacent clusters over 2–6 days. Their BAW setup operated at 1.14 MHz (same order as our 741 kHz). This is directly relevant to the biological endpoint of our biohybrid CI: acoustically patterned neural aggregates forming directed inter-cluster connections. Their work confirms that (a) biological cells have sufficient acoustic contrast for stable trapping at sub-MHz to low-MHz frequencies despite Φ being lower than for polystyrene beads, and (b) acoustically positioned neurons produce directed neurite outgrowth governed by chemical cues from neighboring clusters — exactly the organoid-to-SGN connectivity our device requires.
 
 ## Deliverable
 
@@ -134,13 +202,13 @@ $$
 
 The standing wave ratio at position x is S(x) = |r| · exp(−2α(L − x)), and the contrast is C(x) = ((1 + S)/(1 − S))².
 
-The acoustic radiation force on a compressible particle (iPSC) at position x is proportional to:
+The acoustic radiation force on a compressible particle (iPSC) at position x is given by the Gor'kov potential gradient:
 
 $$
-F_{\mathrm{rad}}(x) \propto -\frac{\partial}{\partial x}\left[\langle p^2(x)\rangle\right]
+F_{\mathrm{rad}}(x) = \Phi \cdot \frac{\pi a^3}{3 \rho_f c_f^2} \cdot \left(-\frac{\partial}{\partial x}\langle p^2(x)\rangle\right)
 $$
 
-which drives particles toward pressure nodes. The force magnitude at each node determines the trapping strength and influences the final organoid compaction.
+where Φ ≈ 0.059 is the acoustic contrast factor for cells in water (see discussion above), and $a$ ≈ 100 µm is the organoid radius. The force drives particles toward pressure nodes (Φ > 0). The Gor'kov prefactor converts the dimensionless pressure gradient into physical force in Newtons. Note that for polystyrene beads (Φ ≈ 0.22), the same pressure field produces ~3× larger trapping force — see the "Beads vs. Cells" discussion above for why literature bead-based demonstrations may require higher acoustic power to replicate with biological cells.
 
 ### Coupling Layer Sub-Model (Part B)
 
@@ -178,6 +246,17 @@ The parameters used in this model are as follows:
 * Target organoid diameter: ~200 µm
 * Inter-organoid spacing: ~1 mm (matching CI electrode spacing)
 
+**Gor'kov acoustic contrast (particle/cell properties):**
+
+* Cell/organoid density: ρ_p = 1050 kg/m³ (typical mammalian cells such as our human iPSCs; Cohen et al., 2020)
+* Cell/organoid sound speed: c_p = 1550 m/s (soft tissue; range 1520–1600 m/s)
+* Organoid radius: a = 100 µm (200 µm diameter)
+* Monopole coefficient: f₁ = 1 − (ρ_f c_f²)/(ρ_p c_p²) ≈ 0.128
+* Dipole coefficient: f₂ = 2(ρ_p − ρ_f)/(2ρ_p + ρ_f) ≈ 0.032
+* **Acoustic contrast factor: Φ = f₁/3 + f₂/2 ≈ 0.059** (cells in water)
+* For comparison: polystyrene beads (c_p = 2350 m/s) give Φ ≈ 0.22 — roughly 3× higher
+* Φ > 0 confirms organoids migrate to pressure nodes (as required)
+
 **Vertical stack (energy coupling):**
 
 * LiNbO₃ transducer: ρ₁ = 4647 kg/m³, c₁ = 6570 m/s, Z₁ = 30.53 MRayl
@@ -194,10 +273,19 @@ The parameters used in this model are as follows:
 
 * **Fig 3** — Resonant mode structure — mode frequencies f_n vs. channel length, with the target operating band (~741 kHz) highlighted, showing how mode spacing Δf = c_f/(2L) varies with L and the number of organoids per channel
 
-* **Fig 4** — Nodal uniformity profile — acoustic radiation force magnitude at each node position along the channel, normalized to the strongest node, for glass vs. silicon sidewalls at L = 5, 10, and 20 mm
+* **Fig 4** — Nodal uniformity profile — acoustic radiation force magnitude at each node position along the channel, normalized to the strongest node, for glass vs. silicon sidewalls at L = 5, 10, and 20 mm. Includes Gor'kov force in Newtons (at p₀ = 1 Pa normalization; multiply by p₀² for actual force) using Φ ≈ 0.059 for cells and a = 100 µm organoid radius
 
 * **Fig 5** — Coupling layer characterization — input impedance Z_in and power transmission T through the vertical stack as a function of couplant thickness d at 741 kHz, demonstrating that the couplant is nearly transparent (d/λ₂ < 0.025) at this frequency
 
 * **Fig 6** — Frequency sensitivity — organoid spacing error (deviation from 1 mm) and contrast loss as a function of frequency detuning Δf/f for different channel lengths, quantifying how precisely the driving frequency must be controlled
 
 * **Fig 7** — Combined design space — number of organoids, minimum nodal force (weakest node), and Q-factor vs. channel length for glass and silicon sidewalls, providing a single-figure summary for channel design decisions
+
+## References
+
+* Bruus, H. (2012). Acoustofluidics 7: The acoustic radiation force on small particles. *Lab on a Chip*, 12, 1014–1021.
+* Cohen, S., Sazan, H., Kenigsberg, A., Schori, H., Berman, D., Houber, A., ... & Bhatt, D. (2020). Large-scale acoustic-driven neuronal patterning and directed outgrowth. *Scientific Reports*, 10, 4932.
+* Gor'kov, L. P. (1962). On the forces acting on a small particle in an acoustical field in an ideal fluid. *Soviet Physics Doklady*, 6, 773–775.
+* Jia, H., et al. (2025). [Transfer-matrix multilayer acoustics — see BENG207_1 README for full citation].
+* Nella, K. T., et al. (2024). [BDNF gradient dissipation in microfluidic platform — see BENG207_1 README for full citation].
+* Wang, Z., Huber, T., Bhatt, D., & Friend, J. (2022). Sequential wave patterning in a cuvette. *Applied Physics Letters*, 120, 033501.
