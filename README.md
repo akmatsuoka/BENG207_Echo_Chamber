@@ -22,11 +22,13 @@ Instruction to BENG207 students: Please review all of the variables/parameters!!
 * [Output Figures: Captions](#output-figures-captions)
 * [References](#references)
 
----
 ## Documentation
+- [Student GitHub Workflow](GitHub_Upload_Instruction_BENG207.md)
+
 - [More about Gor'kov contrast factor](BENG207_2_Gorkov_Explanation.md)
 
 ## Abstract
+
 TBW
 
 ## Background and Significance
