@@ -1,6 +1,6 @@
 /* rigid_cavity_model.c
  *
- * BENG207_2: Rigid Cavity Resonator Model (Updated on 02/18/2026)
+ * BENG207_2: Rigid Cavity Resonator Model
  *
  * Lateral standing wave between rigid sidewalls for iPSC organoid formation.
  * Organoid spacing ~1 mm matches CI electrode spacing (~30 mm cochlea / 22 ch).
@@ -31,12 +31,8 @@
  *
  * Run:
  *   ./cavity_model        (Linux/Mac)
- *   cavity_model.exe      (Windows!!!)
+ *   cavity_model.exe      (Windows)
  *   CSVs appear in PLOT_CSV/ subfolder next to the executable.
- * 
- * In this version, I included Gor'kov contrast factor — add Φ as a parameter,
- *  multiply into the radiation force. Please also read my discussion on the
- *  beads and stem cells in README.md . 
  */
 
 #include <stdio.h>
@@ -132,7 +128,7 @@ static Cpx cpx_sqrt(Cpx a)
 #endif
 
 /* Output directory — relative to executable */
-#define OUTPUT_DIR "PLOT_CSV"
+#define OUTPUT_DIR "/home/shh/Projects/BENG207_2/PLOT_CSV"
 
 /* ============================================================
  * Material parameters
@@ -196,7 +192,7 @@ static const double c_p   = 1550.0;   /* m/s — longitudinal sound speed in
 static const double a_organoid = 100.0e-6;  /* m — organoid radius (~200 um
                                               * diameter). This is the nominal
                                               * radius for force calculation;
-                                              * actual IPSC-organoids vary. */
+                                              * actual organoids vary. */
 
 /* Derived Gor'kov quantities (set in main) */
 static double f1_monopole;  /* = 1 - kappa_p/kappa_f = 1 - (rho_f*c_f^2)/(rho_p*c_p^2) */
@@ -303,7 +299,6 @@ static double radiation_force(double x, double L, double freq,
 
 /* ============================================================
  * BEGIN ADDITION: Gor'kov radiation force (physical units)
- * This is the most recent addition to this code. 
  *
  * Converts the dimensionless pressure-gradient force into
  * absolute Newtons using the Gor'kov prefactor:
@@ -501,7 +496,7 @@ static void output_contrast_map(void)
  * OUTPUT 3: Resonant mode structure
  *
  * Mode frequencies f_n vs channel length,
- * number of modes in transducer bandwidth. Very straight forward. 
+ * number of modes in transducer bandwidth.
  * ============================================================ */
 
 static void output_mode_structure(void)
@@ -554,8 +549,7 @@ static void output_mode_structure(void)
  *
  * Radiation force magnitude at each node along the channel,
  * normalized to the strongest node.
- * Glass vs silicon, L = 5, 10, 20 mm. (you guys can change it however you want,
- * but I suggest you guys want to start with 5 mm first with 4 spheroids?)
+ * Glass vs silicon, L = 5, 10, 20 mm.
  * ============================================================ */
 
 static void output_nodal_uniformity(void)
@@ -875,7 +869,7 @@ int main(void)
         f2_dipole   = 2.0 * (rho_p - rho_f) / (2.0 * rho_p + rho_f);
         Phi_contrast = f1_monopole / 3.0 + f2_dipole / 2.0;
     }
-    /* END ADDITION: Gor'kov contrast factor by AJM*/
+    /* END ADDITION: Gor'kov contrast factor */
 
     r_glass  = reflection_coeff(Z_glass, Z_f);
     r_silicon = reflection_coeff(Z_si, Z_f);
@@ -911,16 +905,49 @@ int main(void)
     printf("-----------------------------------------------------\n");
     printf(" Channel lengths: 5-20 mm -> 5-20 organoids\n");
     printf(" Human cochlea ~30 mm, CI = 22 electrodes\n");
-    /* BEGIN ADDITION: Gor'kov summary in startup banner */
+    /* BEGIN ADDITION: Gor'kov summary + BENG207_3 hand-off */
     printf("-----------------------------------------------------\n");
     printf(" Gor'kov acoustic contrast factor:\n");
     printf("   rho_p  = %.0f kg/m^3 (cell density)\n", rho_p);
     printf("   c_p    = %.0f m/s (cell sound speed)\n", c_p);
     printf("   a      = %.0f um (organoid radius)\n", a_organoid*1e6);
-    printf("   f1     = %.4f (monopole)\n", f1_monopole);
-    printf("   f2     = %.4f (dipole)\n", f2_dipole);
-    printf("   Phi    = %.4f (contrast factor)\n", Phi_contrast);
+    printf("   f1     = %.4f (monopole — compressibility contrast,\n",
+           f1_monopole);
+    printf("              cells less compressible than water: c_p > c_f)\n");
+    printf("   f2     = %.4f (dipole — density contrast,\n", f2_dipole);
+    printf("              cells slightly denser: rho_p > rho_f)\n");
+    printf("   Phi    = %.4f (acoustic contrast factor)\n", Phi_contrast);
     printf("   Phi > 0 => organoids migrate to pressure NODES\n");
+    printf("-----------------------------------------------------\n");
+    printf(" Hand-off to BENG207_3 (stress estimation at p_ac = 500 kPa):\n");
+    {
+        double p_ref = 0.5e6;  /* 500 kPa reference pressure */
+        double f_lat = 741.5e3;
+        double f_vert = 20.0e6;
+        double D_org = 2.0 * a_organoid;
+        double lambda_vert = c_f / f_vert;
+
+        /* Gorkov: sigma = 4 * Phi * k * a * E_ac
+         *   where E_ac = p^2 / (4 * rho_f * c_f^2)               */
+        double k_lat  = 2.0 * M_PI * f_lat / c_f;
+        double k_vert = 2.0 * M_PI * f_vert / c_f;
+        double E_ac   = p_ref * p_ref / (4.0 * rho_f * c_f * c_f);
+
+        double sig_741k = 4.0 * Phi_contrast * k_lat  * a_organoid * E_ac;
+        double sig_20M  = 4.0 * Phi_contrast * k_vert * a_organoid * E_ac;
+        double g_corr   = 0.5;
+        double sig_used = g_corr * sig_20M;
+
+        printf("   sigma_gorkov(741 kHz)  = %.2f Pa  (D/lambda=%.2f, "
+               "Gorkov valid)\n",
+               sig_741k, D_org / (c_f / f_lat));
+        printf("   sigma_gorkov(20 MHz)   = %.2f Pa  (raw, no g_corr)\n",
+               sig_20M);
+        printf("   sigma_0 -> BENG207_3   = %.2f Pa  (g_corr=%.1f for "
+               "D/lambda=%.1f)\n",
+               sig_used, g_corr, D_org / lambda_vert);
+        printf("   [replaces old hand-waved alpha=0.15 -> 11.4 Pa]\n");
+    }
     /* END ADDITION */
     printf("=====================================================\n\n");
 
