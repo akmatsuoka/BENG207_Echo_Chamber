@@ -245,11 +245,11 @@ At 741 kHz, the couplant wavelength is λ₂ = c₂/f = 1500/741000 ≈ 2.02 mm,
 Figure 1: Three-dimensional schematic of the rigid cavity resonator. The vertical stack (LiNbO₃ → US gel → glass) is shown at the bottom. The fluid channel sits on top of the glass, bounded laterally by rigid sidewalls. The standing wave (pink) propagates horizontally along the channel length, with pressure nodes spaced at λ/2 ≈ 1 mm. iPSC organoids (~200 µm diameter) form at each pressure node, matching the inter-electrode spacing of a 22-channel cochlear implant. Forward wave (p⁺) enters from the left wall; reflected wave (p⁻) returns from the right wall.
 
 ## Parameters
-
+ 
 The parameters used in this model are as follows:
 
 **Lateral cavity (standing wave direction):**
-
+ 
 * Channel length: L = 5–20 mm
 * Sidewall material: borosilicate glass (Z₃ = 12.58 MRayl) or silicon (Z_Si ≈ 19.7 MRayl)
 * Fluid: water, ρ_f = 1000 kg/m³, c_f = 1483 m/s, Z_f = 1.48 MRayl
@@ -308,12 +308,58 @@ The dual-transducer configuration solves this. By placing one PZT-5A (a common P
 
 This approach follows Hou et al. (*Extreme Mechanics Letters* 37, 100716, 2020), who demonstrated parametric bulk acoustic wave manipulation in a 20 × 20 × 5 mm acrylic cavity using orthogonal PZT transducer pairs at 2 MHz.
 
+### Figure 2
+
+![Rigid Cavity Resonator Schematic-two PZT side-by-side model](docs/img/BENG207_model_2_dual_PZT_schematic.jpg)
+
+
+**Figure 2:** Schematic of the dual-transducer immersed configuration
+(Configuration B) for iPSC organoid patterning. Two PZT-5A transducers
+(purple) are positioned on either side of a PDMS microfluidic chamber,
+immersed in a surrounding water bath. Each transducer launches a plane
+wave through a 5 mm water gap and a 10 mm PDMS side wall into the
+20 mm × 1 mm water channel, where the two counter-propagating waves
+($p_L$ rightward, blue; $p_R$ leftward, red) superpose to form a
+lateral standing wave (pink sinusoid). Ten iPSC organoids (~200 µm
+diameter, pink spheres) collect at the pressure nodes, spaced at
+$\lambda/2 \approx 1$ mm to match cochlear implant (CI) electrode
+spacing. Green dashed lines between organoids indicate neurite
+extension pathways.
+
+The PDMS chamber (pink, 9 mm ceiling, 10 mm side walls) sits on a
+1 mm borosilicate glass slide (green), which provides vertical
+confinement of the lateral standing wave via total internal reflection
+(TIR) at the critical angle $\theta_c = 15.3°$ — all wave components
+traveling at angles steeper than 15.3° from the surface normal are
+perfectly reflected back into the channel (see Part E, Fig 15).
+
+Unlike Configuration A (single transducer underneath with couplant and
+glass substrate), Configuration B forms the standing wave by
+superposition rather than wall reflection, achieving theoretically
+infinite contrast regardless of PDMS wall impedance ($|r| = 0.17$).
+The relative phase $\varphi$ between the two transducers can be swept
+from 0 to $\pi$ to shift all node positions by up to
+$\lambda/4 = 0.5$ mm, enabling post-formation alignment of organoids
+with CI electrodes. No ultrasound gel couplant is required, eliminating
+the aging-dependent coupling loss characterized by the BENG207_1
+transfer-matrix model.
+
+The primary acoustic design concern is attenuation through the PDMS
+side walls (~3.7 dB per wall at 10 mm thickness and 5 dB/cm/MHz; see
+Part D, Figs 12–14), which reduces absolute trapping force but does
+not degrade standing wave contrast since both transducer paths
+experience equal loss.
+
+
+
+
+
 ### Current Experimental Geometry
 
 Based on the PI's design sketch, the physical setup is:
 
 ```
-PZT — 5mm water gap — 10mm PDMS wall — 20mm water channel — 10mm PDMS wall — 5mm water gap — PZT
+PZT — 5mm water gap —3mm PDMS wall — 20mm water channel — 10mm PDMS wall — 5mm water gap — PZT
                                          |
                             borosilicate glass slide (substrate)
                                          |
@@ -321,7 +367,7 @@ PZT — 5mm water gap — 10mm PDMS wall — 20mm water channel — 10mm PDMS wa
                          Channel depth: 1 mm
 ```
 
-The PZTs are **immersed in water**, not bonded to the PDMS walls. Acoustic waves propagate laterally through the water gap (lossless), through the PDMS wall (lossy), and into the water channel where organoids are trapped. The glass slide underneath is perpendicular to the wave propagation and serves as structural support.
+The PZTs are completely **immersed in water**, not bonded to the PDMS walls. Acoustic waves propagate laterally through the water gap (lossless), through the PDMS wall (lossy), and into the water channel where organoids are trapped. The glass slide underneath is perpendicular to the wave propagation and serves as structural support.
 
 ### Does Acoustic Energy Leak into the Glass Slide?
 
@@ -517,7 +563,7 @@ If the glass slide were replaced with a PDMS substrate, acoustic energy would ra
 
 ### Part E Output Figure
 
-* **Fig 15** — Glass slide vertical confinement: power reflection coefficient $R$ vs. incidence angle (0–90°) for four bottom boundary materials — borosilicate glass (blue), PDMS (red), acrylic (green), and open water (gray dashed). The vertical dashed line marks the glass critical angle at $\theta_c$ = 15.3°. Glass jumps to $R$ = 1.0 (total internal reflection) beyond this angle and remains there for all steeper incidence angles, including the lateral standing wave at 90°. PDMS never reaches $R$ = 1.0 at any angle — energy leaks through at all incidence angles. This demonstrates that the glass slide is essential for vertical confinement of the lateral standing wave.
+**Fig 15** — Glass slide vertical confinement: power reflection coefficient $R$ vs. incidence angle (0–90°) for four bottom boundary materials — borosilicate glass (blue), PDMS (red), acrylic (green), and open water (gray dashed). The vertical dashed line marks the glass critical angle at $\theta_c$ = 15.3°. Glass jumps to $R$ = 1.0 (total internal reflection) beyond this angle and remains there for all steeper incidence angles, including the lateral standing wave at 90°. PDMS never reaches $R$ = 1.0 at any angle — energy leaks through at all incidence angles. This demonstrates that the glass slide is essential for vertical confinement of the lateral standing wave.
 
 ## References
 
@@ -530,3 +576,4 @@ If the glass slide were replaced with a PDMS substrate, acoustic energy would ra
 * Nella, K. T., et al. (2024). [BDNF gradient dissipation in microfluidic platform — see BENG207_1 README for full citation].
 * Tsou, J. K., Liu, J., Barakat, A. I., & Bhatt, P. (2008). Role of ultrasonic shear rate estimation errors in assessing inflammatory response and vascular risk. *J. Micromech. Microeng.*, 18, 065002.
 * Wang, Z., Huber, T., Bhatt, D., & Friend, J. (2022). Sequential wave patterning in a cuvette. *Applied Physics Letters*, 120, 033501.
+
