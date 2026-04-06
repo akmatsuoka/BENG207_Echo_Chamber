@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 850 520"
+   width="850"
+   height="520"
+   version="1.1"
+   id="svg59"
+   sodipodi:docname="BENG207_model_2_dual_PZT_schematic.svg"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   inkscape:export-filename="BENG207_model_2_dual_PZT_schematic.jpg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview59"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.2923077"
+     inkscape:cx="425.11745"
+     inkscape:cy="225.31879"
+     inkscape:window-width="1078"
+     inkscape:window-height="1190"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg59" />
+  <defs
+     id="defs17">
+    <!-- Gradients matching original style -->
+    <linearGradient
+       id="waterFill"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1">
+      <stop
+         offset="0%"
+         stop-color="#d4eaf7"
+         id="stop1" />
+      <stop
+         offset="100%"
+         stop-color="#a8d4f0"
+         id="stop2" />
+    </linearGradient>
+    <linearGradient
+       id="glassFill"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1">
+      <stop
+         offset="0%"
+         stop-color="#c8dcc8"
+         id="stop3" />
+      <stop
+         offset="100%"
+         stop-color="#9ab89a"
+         id="stop4" />
+    </linearGradient>
+    <linearGradient
+       id="pdmsFill"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1">
+      <stop
+         offset="0%"
+         stop-color="#f0e0e8"
+         id="stop5" />
+      <stop
+         offset="100%"
+         stop-color="#dab0c8"
+         id="stop6" />
+    </linearGradient>
+    <linearGradient
+       id="pztFill"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1">
+      <stop
+         offset="0%"
+         stop-color="#d4c8e8"
+         id="stop7" />
+      <stop
+         offset="100%"
+         stop-color="#a890d0"
+         id="stop8" />
+    </linearGradient>
+    <linearGradient
+       id="electrodeFill"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1">
+      <stop
+         offset="0%"
+         stop-color="#e0d8a0"
+         id="stop9" />
+      <stop
+         offset="100%"
+         stop-color="#c0b060"
+         id="stop10" />
+    </linearGradient>
+    <radialGradient
+       id="organoidGrad">
+      <stop
+         offset="0%"
+         stop-color="#f5c6ec"
+         id="stop11" />
+      <stop
+         offset="70%"
+         stop-color="#d65db1"
+         id="stop12" />
+      <stop
+         offset="100%"
+         stop-color="#a0408a"
+         id="stop13" />
+    </radialGradient>
+    <marker
+       id="arrowBlack"
+       markerWidth="8"
+       markerHeight="6"
+       refX="8"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 0,0 8,3 0,6 Z"
+         fill="#333"
+         id="path13" />
+    </marker>
+    <marker
+       id="arrowBlackRev"
+       markerWidth="8"
+       markerHeight="6"
+       refX="0"
+       refY="3"
+       orient="auto">
+      <path
+         d="M 8,0 0,3 8,6 Z"
+         fill="#333"
+         id="path14" />
+    </marker>
+    <marker
+       id="arrowBlue"
+       markerWidth="10"
+       markerHeight="7"
+       refX="10"
+       refY="3.5"
+       orient="auto">
+      <path
+         d="M 0,0 10,3.5 0,7 Z"
+         fill="#2471a3"
+         id="path15" />
+    </marker>
+    <marker
+       id="arrowRed"
+       markerWidth="10"
+       markerHeight="7"
+       refX="0"
+       refY="3.5"
+       orient="auto">
+      <path
+         d="M 10,0 0,3.5 10,7 Z"
+         fill="#c0392b"
+         id="path16" />
+    </marker>
+    <marker
+       id="arrowPurple"
+       markerWidth="10"
+       markerHeight="7"
+       refX="10"
+       refY="3.5"
+       orient="auto">
+      <path
+         d="M 0,0 10,3.5 0,7 Z"
+         fill="#7b68ae"
+         id="path17" />
+    </marker>
+  </defs>
+  <!-- ================================================================ -->
+  <!-- Title -->
+  <!-- ================================================================ -->
+  <text
+     x="425"
+     y="22"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="14px"
+     font-weight="bold"
+     fill="#1a1a2e"
+     id="text17">
+    BENG207_2 Configuration B: Dual-Transducer Immersed in Water
+  </text>
+  <text
+     x="425"
+     y="38"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="11px"
+     fill="#666"
+     id="text18">
+    PZT → water gap → PDMS wall → water channel (organoids) → PDMS wall → water gap → PZT
+  </text>
+  <!-- ================================================================ -->
+  <!-- Surrounding water (background) -->
+  <!-- ================================================================ -->
+  <rect
+     x="30"
+     y="55"
+     width="790"
+     height="400"
+     rx="6"
+     fill="url(#waterFill)"
+     stroke="#7badd4"
+     stroke-width="1.5"
+     opacity="0.35"
+     id="rect18" />
+  <text
+     x="417.5596"
+     y="92.092316"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="14.6315px"
+     fill="#4a86b8"
+     font-style="italic"
+     id="text19"
+     transform="scale(1.0017072,0.99829573)"
+     style="stroke-width:1.46315">surrounding water bath</text>
+  <!-- ================================================================ -->
+  <!-- Glass slide (bottom substrate) -->
+  <!-- ================================================================ -->
+  <rect
+     x="140"
+     y="380"
+     width="570"
+     height="30"
+     fill="url(#glassFill)"
+     stroke="#6a9a6a"
+     stroke-width="1.2"
+     rx="2"
+     id="rect19" />
+  <text
+     x="460.89169"
+     y="375.68753"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="13.7503px"
+     font-weight="bold"
+     fill="#4a7a4a"
+     id="text20"
+     transform="scale(0.93483509,1.0697074)"
+     style="stroke-width:1.25002">Borosilicate Glass Slide (1 mm)</text>
+  <!-- ================================================================ -->
+  <!-- PDMS chamber structure -->
+  <!-- ================================================================ -->
+  <!-- Left PDMS wall -->
+  <rect
+     x="170"
+     y="170"
+     width="70"
+     height="210"
+     fill="url(#pdmsFill)"
+     stroke="#b07098"
+     stroke-width="1.2"
+     rx="2"
+     id="rect20" />
+  <text
+     x="-320.94598"
+     y="192.90161"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="15.1149px"
+     font-weight="bold"
+     fill="#904878"
+     transform="matrix(0,-0.94741105,1.0555081,0,0,0)"
+     id="text21"
+     style="stroke-width:1.67943">PDMS wall (3 mm)</text>
+  <!-- Right PDMS wall -->
+  <rect
+     x="610"
+     y="170"
+     width="70"
+     height="210"
+     fill="url(#pdmsFill)"
+     stroke="#b07098"
+     stroke-width="1.2"
+     rx="2"
+     id="rect21" />
+  <text
+     x="-307.23596"
+     y="636.33057"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="14.3922px"
+     font-weight="bold"
+     fill="#904878"
+     transform="matrix(0,-0.98826377,1.0118756,0,0,0)"
+     id="text22"
+     style="stroke-width:1.59913">PDMS wall 3 mm)</text>
+  <!-- PDMS ceiling -->
+  <rect
+     x="170"
+     y="170"
+     width="510"
+     height="60"
+     fill="url(#pdmsFill)"
+     stroke="#b07098"
+     stroke-width="1.2"
+     rx="2"
+     opacity="0.7"
+     id="rect22" />
+  <text
+     x="417.91241"
+     y="215.48468"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="17.1031px"
+     font-weight="bold"
+     fill="#904878"
+     id="text23"
+     transform="scale(1.0448799,0.95704777)"
+     style="stroke-width:1.71031">PDMS ceiling (9 mm)</text>
+  <!-- ================================================================ -->
+  <!-- Water channel (inside PDMS) -->
+  <!-- ================================================================ -->
+  <rect
+     x="240"
+     y="230"
+     width="370"
+     height="150"
+     fill="url(#waterFill)"
+     stroke="#5a9abf"
+     stroke-width="1.5"
+     rx="2"
+     id="rect23" />
+  <text
+     x="480.30994"
+     y="225.60762"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="14.2995px"
+     font-weight="bold"
+     fill="#2471a3"
+     id="text24"
+     transform="scale(0.89857287,1.1128758)"
+     style="stroke-width:1.42995">Water Channel (20 mm × 1 mm depth)</text>
+  <!-- ================================================================ -->
+  <!-- Standing wave (sinusoidal pattern inside channel) -->
+  <!-- ================================================================ -->
+  <path
+     d="M 250,310             C 260,275 270,275 280,310             C 290,345 300,345 310,310            C 320,275 330,275 340,310            C 350,345 360,345 370,310            C 380,275 390,275 400,310            C 410,345 420,345 430,310            C 440,275 450,275 460,310            C 470,345 480,345 490,310            C 500,275 510,275 520,310            C 530,345 540,345 550,310            C 560,275 570,275 580,310            C 590,345 598,345 600,310"
+     fill="none"
+     stroke="#c030a0"
+     stroke-width="2"
+     opacity="0.6"
+     id="path24" />
+  <!-- ================================================================ -->
+  <!-- Organoids at pressure nodes -->
+  <!-- ================================================================ -->
+  <circle
+     cx="280"
+     cy="310"
+     r="9"
+     fill="url(#organoidGrad)"
+     stroke="#a0408a"
+     stroke-width="1"
+     id="circle24" />
+  <circle
+     cx="310"
+     cy="310"
+     r="9"
+     fill="url(#organoidGrad)"
+     stroke="#a0408a"
+     stroke-width="1"
+     id="circle25" />
+  <circle
+     cx="340"
+     cy="310"
+     r="9"
+     fill="url(#organoidGrad)"
+     stroke="#a0408a"
+     stroke-width="1"
+     id="circle26" />
+  <circle
+     cx="370"
+     cy="310"
+     r="9"
+     fill="url(#organoidGrad)"
+     stroke="#a0408a"
+     stroke-width="1"
+     id="circle27" />
+  <circle
+     cx="400"
+     cy="310"
+     r="9"
+     fill="url(#organoidGrad)"
+     stroke="#a0408a"
+     stroke-width="1"
+     id="circle28" />
+  <circle
+     cx="430"
+     cy="310"
+     r="9"
+     fill="url(#organoidGrad)"
+     stroke="#a0408a"
+     stroke-width="1"
+     id="circle29" />
+  <circle
+     cx="460"
+     cy="310"
+     r="9"
+     fill="url(#organoidGrad)"
+     stroke="#a0408a"
+     stroke-width="1"
+     id="circle30" />
+  <circle
+     cx="490"
+     cy="310"
+     r="9"
+     fill="url(#organoidGrad)"
+     stroke="#a0408a"
+     stroke-width="1"
+     id="circle31" />
+  <circle
+     cx="520"
+     cy="310"
+     r="9"
+     fill="url(#organoidGrad)"
+     stroke="#a0408a"
+     stroke-width="1"
+     id="circle32" />
+  <circle
+     cx="550"
+     cy="310"
+     r="9"
+     fill="url(#organoidGrad)"
+     stroke="#a0408a"
+     stroke-width="1"
+     id="circle33" />
+  <!-- Neurite extensions (dashed green lines between organoids) -->
+  <line
+     x1="289"
+     y1="310"
+     x2="301"
+     y2="310"
+     stroke="#70a070"
+     stroke-width="1"
+     stroke-dasharray="2,2"
+     id="line33" />
+  <line
+     x1="319"
+     y1="310"
+     x2="331"
+     y2="310"
+     stroke="#70a070"
+     stroke-width="1"
+     stroke-dasharray="2,2"
+     id="line34" />
+  <line
+     x1="349"
+     y1="310"
+     x2="361"
+     y2="310"
+     stroke="#70a070"
+     stroke-width="1"
+     stroke-dasharray="2,2"
+     id="line35" />
+  <line
+     x1="379"
+     y1="310"
+     x2="391"
+     y2="310"
+     stroke="#70a070"
+     stroke-width="1"
+     stroke-dasharray="2,2"
+     id="line36" />
+  <line
+     x1="409"
+     y1="310"
+     x2="421"
+     y2="310"
+     stroke="#70a070"
+     stroke-width="1"
+     stroke-dasharray="2,2"
+     id="line37" />
+  <line
+     x1="439"
+     y1="310"
+     x2="451"
+     y2="310"
+     stroke="#70a070"
+     stroke-width="1"
+     stroke-dasharray="2,2"
+     id="line38" />
+  <line
+     x1="469"
+     y1="310"
+     x2="481"
+     y2="310"
+     stroke="#70a070"
+     stroke-width="1"
+     stroke-dasharray="2,2"
+     id="line39" />
+  <line
+     x1="499"
+     y1="310"
+     x2="511"
+     y2="310"
+     stroke="#70a070"
+     stroke-width="1"
+     stroke-dasharray="2,2"
+     id="line40" />
+  <line
+     x1="529"
+     y1="310"
+     x2="541"
+     y2="310"
+     stroke="#70a070"
+     stroke-width="1"
+     stroke-dasharray="2,2"
+     id="line41" />
+  <!-- ================================================================ -->
+  <!-- Left PZT transducer -->
+  <!-- ================================================================ -->
+  <rect
+     x="55"
+     y="185"
+     width="40"
+     height="180"
+     fill="url(#pztFill)"
+     stroke="#7b68ae"
+     stroke-width="1.5"
+     rx="3"
+     id="rect41" />
+  <text
+     x="-310.89575"
+     y="70.216423"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="20.3126px"
+     font-weight="bold"
+     fill="#5b48ae"
+     transform="matrix(0,-0.87519662,1.1426004,0,0,0)"
+     id="text41"
+     style="stroke-width:1.84659">PZT-5A (left)</text>
+  <!-- Right PZT transducer -->
+  <rect
+     x="755"
+     y="185"
+     width="40"
+     height="180"
+     fill="url(#pztFill)"
+     stroke="#7b68ae"
+     stroke-width="1.5"
+     rx="3"
+     id="rect42" />
+  <text
+     x="299.49466"
+     y="-717.65338"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="18.4323px"
+     font-weight="bold"
+     fill="#5b48ae"
+     transform="matrix(0,0.93316173,-1.0716256,0,0,0)"
+     id="text42"
+     style="stroke-width:1.67566">PZT-5A (right)</text>
+  <!-- ================================================================ -->
+  <!-- Water gap labels -->
+  <!-- ================================================================ -->
+  <text
+     x="-275.82828"
+     y="131.58659"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="18.4281px"
+     fill="#4a86b8"
+     transform="matrix(0,-1.0426846,0.95906281,0,0,0)"
+     id="text43"
+     style="stroke-width:2.30352">water gap (5 mm)</text>
+  <text
+     x="-290.39819"
+     y="732.8905"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="18.2792px"
+     fill="#4a86b8"
+     transform="matrix(0,-0.98301198,1.0172816,0,0,0)"
+     id="text44"
+     style="stroke-width:2.2849">water gap (5 mm)</text>
+  <!-- ================================================================ -->
+  <!-- Acoustic wave arrows (counter-propagating) -->
+  <!-- ================================================================ -->
+  <!-- Left PZT → rightward wave -->
+  <line
+     x1="96.255035"
+     y1="287.48322"
+     x2="230.25504"
+     y2="287.48322"
+     stroke="#2471a3"
+     stroke-width="2.2"
+     marker-end="url(#arrowBlue)"
+     id="line44" />
+  <text
+     x="161.35866"
+     y="253.28842"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="14.0023px"
+     font-weight="bold"
+     fill="#2471a3"
+     id="text45"
+     transform="scale(0.96382523,1.0375325)"
+     style="stroke-width:1.55581">p_L →</text>
+  <!-- Right PZT → leftward wave -->
+  <line
+     x1="752"
+     y1="275"
+     x2="618"
+     y2="275"
+     stroke="#c0392b"
+     stroke-width="2.2"
+     marker-end="url(#arrowRed)"
+     id="line45" />
+  <text
+     x="672.51556"
+     y="279.65121"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="17.121px"
+     font-weight="bold"
+     fill="#c0392b"
+     id="text46"
+     transform="scale(1.0458425,0.95616692)"
+     style="stroke-width:1.90233">← p_R</text>
+  <!-- ================================================================ -->
+  <!-- Total internal reflection arrows at glass -->
+  <!-- ================================================================ -->
+  <line
+     x1="350"
+     y1="370"
+     x2="350"
+     y2="382"
+     stroke="#4a7a4a"
+     stroke-width="1.5"
+     marker-end="url(#arrowPurple)"
+     opacity="0.5"
+     id="line46" />
+  <line
+     x1="350"
+     y1="382"
+     x2="350"
+     y2="370"
+     stroke="#4a7a4a"
+     stroke-width="1.5"
+     opacity="0.5"
+     id="line47" />
+  <path
+     d="M 345,372 L 350,380 L 355,372"
+     fill="none"
+     stroke="#4a7a4a"
+     stroke-width="1.2"
+     id="path47" />
+  <path
+     d="M 345,378 L 350,370 L 355,378"
+     fill="none"
+     stroke="#2a8a2a"
+     stroke-width="1.2"
+     id="path48" />
+  <text
+     x="371.81165"
+     y="381.94498"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="12.7464px"
+     fill="#2a8a2a"
+     id="text48"
+     transform="scale(1.0216827,0.97877744)"
+     style="stroke-width:1.82091">TIR (θ_c = 15.3°)</text>
+  <!-- ================================================================ -->
+  <!-- Dimension annotations -->
+  <!-- ================================================================ -->
+  <!-- Channel length L -->
+  <line
+     x1="240"
+     y1="145"
+     x2="610"
+     y2="145"
+     stroke="#333"
+     stroke-width="1.2"
+     marker-start="url(#arrowBlackRev)"
+     marker-end="url(#arrowBlack)"
+     id="line48" />
+  <text
+     x="425"
+     y="140"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="11px"
+     font-weight="bold"
+     fill="#333"
+     id="text49">L = 20 mm (channel length)</text>
+  <!-- λ/2 spacing -->
+  <line
+     x1="280"
+     y1="340"
+     x2="310"
+     y2="340"
+     stroke="#333"
+     stroke-width="1"
+     marker-start="url(#arrowBlackRev)"
+     marker-end="url(#arrowBlack)"
+     id="line49" />
+  <text
+     x="295"
+     y="355"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="8px"
+     font-weight="bold"
+     fill="#333"
+     id="text50">λ/2 ≈ 1 mm</text>
+  <!-- Standing wave direction -->
+  <text
+     x="425"
+     y="160"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="10px"
+     font-weight="bold"
+     fill="#c030a0"
+     id="text51">
+    ← Standing wave (counter-propagating) →
+  </text>
+  <!-- ================================================================ -->
+  <!-- Organoid callout -->
+  <!-- ================================================================ -->
+  <line
+     x1="460"
+     y1="300"
+     x2="530"
+     y2="262"
+     stroke="#a0408a"
+     stroke-width="1"
+     stroke-dasharray="3,2"
+     id="line51" />
+  <rect
+     x="530"
+     y="255"
+     width="80"
+     height="28"
+     fill="#fdf0f8"
+     stroke="#a0408a"
+     stroke-width="1"
+     rx="4"
+     id="rect51" />
+  <text
+     x="570"
+     y="267"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="8px"
+     font-weight="bold"
+     fill="#a0408a"
+     id="text52">iPSC Organoids</text>
+  <text
+     x="570"
+     y="278"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="7px"
+     fill="#a0408a"
+     id="text53">(~200 µm, 1 mm apart)</text>
+  <!-- ================================================================ -->
+  <!-- Key advantages box -->
+  <!-- ================================================================ -->
+  <rect
+     x="30"
+     y="425"
+     width="790"
+     height="85"
+     rx="5"
+     fill="#f8f4ff"
+     stroke="#7b68ae"
+     stroke-width="1"
+     id="rect53" />
+  <text
+     x="425"
+     y="442"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="11px"
+     font-weight="bold"
+     fill="#5b48ae"
+     id="text54">
+    Config B Advantages (vs. Config A single-source)
+  </text>
+  <text
+     x="50"
+     y="460"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="9px"
+     fill="#444"
+     id="text55">
+    • Contrast: ∞ (perfect nodes) — independent of wall material (PDMS |r| = 0.17 doesn't matter)
+  </text>
+  <text
+     x="50"
+     y="474"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="9px"
+     fill="#444"
+     id="text56">
+    • Phase control: sweep φ from 0→π shifts nodes by λ/4 = 0.5 mm (fine-tune CI electrode alignment)
+  </text>
+  <text
+     x="50"
+     y="488"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="9px"
+     fill="#444"
+     id="text57">
+    • Symmetric: equal trapping force at all nodes (uniform organoid size)
+  </text>
+  <text
+     x="50"
+     y="502"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="9px"
+     fill="#444"
+     id="text58">
+    • No couplant gel: PZT immersed in water, no aging/degradation (eliminates BENG207_1 failure mode)
+  </text>
+  <!-- ================================================================ -->
+  <!-- Reference -->
+  <!-- ================================================================ -->
+  <text
+     x="425"
+     y="517"
+     text-anchor="middle"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="8px"
+     fill="#999"
+     font-style="italic"
+     id="text59">
+    Based on Hou et al., Extreme Mech. Lett. 37, 100716 (2020) — adapted for 1D organoid spacing
+  </text>
+</svg>
