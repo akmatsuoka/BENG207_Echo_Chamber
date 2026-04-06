@@ -130,8 +130,7 @@ static Cpx cpx_sqrt(Cpx a)
 #endif
 
 /* Output directory — relative to executable */
-#define OUTPUT_DIR "/home/shh/Projects/BENG207_2/PLOT_CSV"
-
+#define OUTPUT_DIR "/home/shh/Projects/BENG207_Echo_Chamber_AMN/PLOT_CSV"
 
 /* ============================================================
  * Material parameters
@@ -1425,6 +1424,67 @@ static void output_pdms_attenuation_sensitivity(void)
     printf("  Written: %s (alpha sweep at d=10,5,3,1 mm)\n", fname);
 }
 
+/* OUTPUT 16: PDMS transmission vs. frequency
+ *
+ * The student correctly noted that frequency is the true independent
+ * variable in an experiment — you set f on the function generator,
+ * and the PDMS attenuation follows as alpha = alpha_coeff * f.
+ *
+ * This sweeps frequency from 100 kHz to 5 MHz at four PDMS wall
+ * thicknesses (10, 5, 3, 1 mm), using the frequency-dependent
+ * attenuation alpha(f) = alpha_dBcm_MHz * f_MHz * 100 / 8.686 Np/m.
+ *
+ * Shows how transmission degrades at higher frequencies and why
+ * our 741 kHz operating frequency is favorable for PDMS transmission.
+ */
+static void output_pdms_vs_frequency(void)
+{
+    char fname[256];
+    FILE *fp;
+    int Nf = 500;
+    int i;
+    double d_10 = 10e-3, d_5 = 5e-3, d_3 = 3e-3, d_1 = 1e-3;
+
+    build_path(fname, sizeof(fname), "fig16_pdms_vs_frequency.csv");
+    fp = fopen(fname, "w");
+    if (!fp) { perror(fname); return; }
+
+    fprintf(fp, "freq_kHz,freq_MHz,"
+                "T_10mm,T_10mm_dB,force_norm_10mm,"
+                "T_5mm,T_5mm_dB,force_norm_5mm,"
+                "T_3mm,T_3mm_dB,force_norm_3mm,"
+                "T_1mm,T_1mm_dB,force_norm_1mm\n");
+
+    for (i = 0; i < Nf; i++) {
+        /* Frequency from 100 kHz to 5 MHz */
+        double f = 100e3 + (5e6 - 100e3) * (double)i / (Nf - 1);
+        double f_MHz = f / 1e6;
+
+        /* Frequency-dependent attenuation in PDMS */
+        double alpha_Npm = alpha_pdms_per_MHz_dBcm * f_MHz * 100.0 / 8.686;
+
+        /* Exponential transmission: T = exp(-2*alpha*d) */
+        double T10 = exp(-2.0 * alpha_Npm * d_10);
+        double T5  = exp(-2.0 * alpha_Npm * d_5);
+        double T3  = exp(-2.0 * alpha_Npm * d_3);
+        double T1  = exp(-2.0 * alpha_Npm * d_1);
+
+        fprintf(fp, "%.4f,%.6f,"
+                    "%.8f,%.4f,%.6f,"
+                    "%.8f,%.4f,%.6f,"
+                    "%.8f,%.4f,%.6f,"
+                    "%.8f,%.4f,%.6f\n",
+                f/1e3, f_MHz,
+                T10, 10.0*log10(dmax(T10, 1e-30)), T10,
+                T5,  10.0*log10(dmax(T5,  1e-30)), T5,
+                T3,  10.0*log10(dmax(T3,  1e-30)), T3,
+                T1,  10.0*log10(dmax(T1,  1e-30)), T1);
+    }
+
+    fclose(fp);
+    printf("  Written: %s (%d frequencies, 100 kHz to 5 MHz)\n", fname, Nf);
+}
+
 /* ============================================================
  * PART E: Glass slide vertical confinement
  *
@@ -1807,6 +1867,7 @@ int main(void)
     output_pdms_transmission();
     output_pdms_contrast_vs_thickness();
     output_pdms_attenuation_sensitivity();
+    output_pdms_vs_frequency();
 
     /* ============================================================
      * PART E: Glass slide vertical confinement
@@ -1833,7 +1894,7 @@ int main(void)
     }
     output_glass_confinement();
 
-    printf("\nDone. 15 CSV files total in %s/\n", OUTPUT_DIR);
+    printf("\nDone. 16 CSV files total in %s/\n", OUTPUT_DIR);
 
 #ifdef _WIN32
     printf("Press Enter to exit...");
