@@ -130,7 +130,7 @@ static Cpx cpx_sqrt(Cpx a)
 #endif
 
 /* Output directory — relative to executable */
-#define OUTPUT_DIR "/home/shh/Projects/BENG207_Echo_Chamber_AMN/PLOT_CSV"
+#define OUTPUT_DIR "/home/shh/Projects/BENG207_2/PLOT_CSV"
 
 /* ============================================================
  * Material parameters

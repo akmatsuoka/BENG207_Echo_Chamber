@@ -194,7 +194,7 @@ Here we compute the lateral standing wave pressure field p(x) inside a rigid cav
 4. Sensitivity to frequency detuning, wall reflectivity, and channel length tolerance.
 5. The coupling layer sub-model (vertical stack transmission into the channel), evaluated at ~741 kHz.
 6. **(Part C)** Dual-transducer standing wave: pressure field, phase-controlled node positioning, amplitude imbalance tolerance, and nodal uniformity comparison with single-source.
-7. **(Part D)** PDMS wall transmission: power transmission vs. wall thickness at 741 kHz, effective contrast through lossy PDMS, and attenuation sensitivity analysis for 10, 5, 3, and 1 mm wall designs.
+7. **(Part D)** PDMS wall transmission: power transmission vs. wall thickness at 741 kHz, effective contrast through lossy PDMS, attenuation sensitivity analysis for 10, 5, 3, and 1 mm wall designs, and frequency-dependent transmission showing the advantage of our low operating frequency.
 8. **(Part E)** Glass slide vertical confinement: angle-dependent reflection coefficient at the channel bottom boundary, demonstrating total internal reflection for the lateral standing wave and quantifying energy leakage for alternative bottom materials.
 
 ## BENG207 Rigid Cavity Resonator Model (Analytical Model)
@@ -245,11 +245,11 @@ At 741 kHz, the couplant wavelength is λ₂ = c₂/f = 1500/741000 ≈ 2.02 mm,
 Figure 1: Three-dimensional schematic of the rigid cavity resonator. The vertical stack (LiNbO₃ → US gel → glass) is shown at the bottom. The fluid channel sits on top of the glass, bounded laterally by rigid sidewalls. The standing wave (pink) propagates horizontally along the channel length, with pressure nodes spaced at λ/2 ≈ 1 mm. iPSC organoids (~200 µm diameter) form at each pressure node, matching the inter-electrode spacing of a 22-channel cochlear implant. Forward wave (p⁺) enters from the left wall; reflected wave (p⁻) returns from the right wall.
 
 ## Parameters
- 
+
 The parameters used in this model are as follows:
 
 **Lateral cavity (standing wave direction):**
- 
+
 * Channel length: L = 5–20 mm
 * Sidewall material: borosilicate glass (Z₃ = 12.58 MRayl) or silicon (Z_Si ≈ 19.7 MRayl)
 * Fluid: water, ρ_f = 1000 kg/m³, c_f = 1483 m/s, Z_f = 1.48 MRayl
@@ -312,7 +312,6 @@ This approach follows Hou et al. (*Extreme Mechanics Letters* 37, 100716, 2020),
 
 ![Rigid Cavity Resonator Schematic-two PZT side-by-side model](docs/img/BENG207_model_2_dual_PZT_schematic.jpg)
 
-
 **Figure 2:** Schematic of the dual-transducer immersed configuration
 (Configuration B) for iPSC organoid patterning. Two PZT-5A transducers
 (purple) are positioned on either side of a PDMS microfluidic chamber,
@@ -349,10 +348,6 @@ side walls (~3.7 dB per wall at 10 mm thickness and 5 dB/cm/MHz; see
 Part D, Figs 12–14), which reduces absolute trapping force but does
 not degrade standing wave contrast since both transducer paths
 experience equal loss.
-
-
-
-
 
 ### Current Experimental Geometry
 
@@ -451,7 +446,7 @@ In our immersed dual-transducer setup, each acoustic wave must pass through a **
 
 This does NOT degrade the standing wave contrast (both sides lose equally → symmetric field), but it reduces the **absolute trapping force** by ~57%. Whether this is acceptable depends on the driving pressure.
 
-### PDMS Acoustic Properties
+### PDMS Acoustic Properties (some of them are my guess)
 
 * Density: $\rho_{PDMS}$ = 1040 kg/m³
 * Sound speed: $c_{PDMS}$ = 1030 m/s
@@ -474,7 +469,7 @@ Using the exponential attenuation model ($T \approx e^{-2\alpha d}$) at 5 dB/cm/
 
 **Recommendation:** Thin the PDMS **side walls** to 3 mm or less. The PDMS ceiling (9 mm) and bulk structure can remain thick for mechanical support — only the side walls through which the acoustic waves pass need to be thin. This can be achieved by casting the PDMS in a mold with thin spacers at the side wall positions.
 
-### Fabry-Pérot Resonance Note
+### Fabry-Pérot Resonance Note (i.e., the ping-pong model_
 
 The transfer-matrix model shows transmission peaks > 100% at certain thicknesses where constructive interference occurs inside the PDMS layer (Fabry-Pérot resonance). While physically real for perfectly coherent monochromatic excitation, these peaks are narrow in thickness space (~0.7 mm periodicity) and may not be reliably exploitable in practice. The exponential model provides the conservative, broadband estimate and should be used for design decisions.
 
@@ -494,11 +489,27 @@ The transfer-matrix model shows transmission peaks > 100% at certain thicknesses
 
 * **Fig 14** — PDMS attenuation sensitivity: power transmission at four wall thicknesses (10, 5, 3, 1 mm) as a function of PDMS attenuation coefficient (1–15 dB/cm/MHz). Shows how uncertainty in PDMS acoustic properties propagates to trapping force uncertainty. At 10 mm, the design is highly sensitive to cure conditions; at 1–3 mm, performance is robust.
 
+### Why Our Low Operating Frequency Helps (this is very important!!)
+
+Fig 14 sweeps the PDMS attenuation coefficient as an independent variable, but in practice the attenuation is not something we choose — it is set by the frequency we drive and the PDMS material properties. PDMS acoustic attenuation scales linearly with frequency:
+
+$$
+\alpha_{\mathrm{PDMS}}(f) = \alpha_0 \cdot f
+$$
+
+where $\alpha_0 \approx 5$ dB/cm/MHz is the material constant (Sylgard 184, 10:1 mix ratio). At our operating frequency of 741 kHz, this gives $\alpha \approx 3.7$ dB/cm. At 2 MHz (the frequency used by Hou et al.), attenuation rises to $\alpha \approx 10$ dB/cm — nearly 3× worse.
+
+This means our choice of 741 kHz for organoid spacing is not only set by the CI electrode geometry ($\lambda/2 = 1$ mm), it also happens to fall in a frequency range where PDMS walls are still reasonably transparent. Fig 16 shows this explicitly: at 741 kHz, even the current 10 mm PDMS wall transmits 43% of acoustic power. At 2 MHz through the same wall, transmission drops to ~6% — barely usable. At 5 MHz, it is essentially zero.
+
+This has an important design implication: if future experiments require higher frequencies (e.g., for finer organoid spacing at 200 µm → ~3.7 MHz), the PDMS side walls **must** be thinned to 1–3 mm, or replaced with a lower-attenuation material. At 741 kHz, the 10 mm walls are lossy but functional; at higher frequencies, they become opaque.
+
+* **Fig 16** — PDMS wall transmission vs. frequency: power transmission coefficient at four wall thicknesses (10, 5, 3, 1 mm) as a function of driving frequency (100 kHz to 5 MHz), using the frequency-dependent PDMS attenuation $\alpha = 5 \cdot f_{\mathrm{MHz}}$ dB/cm. The dashed vertical line marks our operating frequency of 741 kHz. At this frequency, 10 mm walls retain 43% and 1 mm walls retain 92%. At higher frequencies (>2 MHz), thick PDMS walls become essentially opaque, demonstrating that our low operating frequency — set by CI electrode spacing — is a design advantage for acoustic transmission through PDMS (should have been Fig 15..sorry. Ana).
+
 ---
 
 ## Part E: Glass Slide Vertical Confinement
 
-### Why the Glass Slide Matters
+### Why the Glass Slide Matters (Alexi's question)
 
 In our dual-transducer configuration, the PDMS channel sits on a borosilicate glass slide. The lateral standing wave propagates horizontally (along x), but acoustic energy can potentially leak *downward* through the bottom boundary into the substrate. Whether this happens depends on the angle-dependent reflection coefficient at the water–substrate interface.
 
@@ -506,7 +517,7 @@ The glass slide turns out to be a critical component — not for its structural 
 
 ### Total Internal Reflection at the Glass Boundary
 
-The lateral standing wave has its wavevector $\mathbf{k}$ directed horizontally, striking the bottom boundary at grazing incidence ($\theta_i = 90°$ from the surface normal). Snell's law governs the refracted angle in the substrate:
+The lateral standing wave has its wave-vector $\mathbf{k}$ directed horizontally, striking the bottom boundary at grazing incidence ($\theta_i = 90°$ from the surface normal). Snell's law governs the refracted angle in the substrate:
 
 $$
 \frac{\sin\theta_t}{c_{\mathrm{substrate}}} = \frac{\sin\theta_i}{c_f}
@@ -526,7 +537,7 @@ $$
 
 Any wave component hitting the glass at an incidence angle greater than 15.3° from normal undergoes **total internal reflection** — zero energy transmits into the glass. Our lateral standing wave propagates at $\theta_i = 90°$, which is far beyond $\theta_c$. Therefore, **the glass acts as a perfect acoustic mirror for the lateral mode**.
 
-### What Happens Without Glass?
+### What Happens Without Glass???
 
 If the channel bottom were PDMS instead of glass, the situation would be dramatically different. PDMS has $c_{\mathrm{PDMS}}$ = 1030 m/s, which is *slower* than water ($c_f$ = 1500 m/s). When $c_{\mathrm{substrate}} < c_f$, the critical angle equation has no real solution — **total internal reflection never occurs at any angle**. Energy leaks through the PDMS bottom at every incidence angle.
 
@@ -576,4 +587,3 @@ If the glass slide were replaced with a PDMS substrate, acoustic energy would ra
 * Nella, K. T., et al. (2024). [BDNF gradient dissipation in microfluidic platform — see BENG207_1 README for full citation].
 * Tsou, J. K., Liu, J., Barakat, A. I., & Bhatt, P. (2008). Role of ultrasonic shear rate estimation errors in assessing inflammatory response and vascular risk. *J. Micromech. Microeng.*, 18, 065002.
 * Wang, Z., Huber, T., Bhatt, D., & Friend, J. (2022). Sequential wave patterning in a cuvette. *Applied Physics Letters*, 120, 033501.
-
